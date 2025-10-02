@@ -1,0 +1,47 @@
+Auto detect text files and normalize line endings to LF
+
+text=auto eol=lf
+
+Windows files
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+Documents
+*.md text
+*.txt text
+Scripts
+*.sh text eol=lf
+*.bash text eol=lf
+Configs
+*.json text
+*.yaml text
+*.yml text
+*.toml text
+Source code
+*.ts text
+*.tsx text
+*.js text
+*.jsx text
+*.css text
+*.scss text
+*.html text
+Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+*.pdf binary

@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+.nyc_output
+
+# Build
+dist/
+build/
+.next/
+out/
+
+# Environment variables (ВАЖНО!)
+.env
+.env.local
+.env*.local
+*.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+.turbo/
+.cache/
+
+# Database
+*.db
+*.sqlite
+
+# Uploads (если есть)
+uploads/
+temp/
+
+# Docker
+.docker/

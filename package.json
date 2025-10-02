@@ -1,0 +1,24 @@
+{
+  "name": "creative-cluster",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Creative Cluster - Monorepo",
+  "packageManager": "pnpm@8.15.0",
+  "scripts": {
+    "dev": "pnpm --filter frontend dev",
+    "dev:all": "concurrently \"pnpm dev:frontend\" \"pnpm dev:backend\"",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:backend": "pnpm --filter backend dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "docker:dev": "docker-compose -f infrastructure/docker/docker-compose.dev.yml up",
+    "clean": "pnpm -r clean && Remove-Item -Recurse -Force node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  }
+}
