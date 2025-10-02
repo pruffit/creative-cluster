@@ -1,0 +1,1 @@
+export { YogaPage } from './YogaPage';
