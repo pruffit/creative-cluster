@@ -1,4 +1,4 @@
-import { Locale, translations } from "@/shared/config/i18n";
+import { Locale, translations } from '@/shared/config/i18n';
 
 export interface I18nContextType {
   locale: Locale;

@@ -15,7 +15,7 @@ export const errorHandler = (
   err: Error | AppError,
   req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction // Prefixed with _ to indicate intentionally unused
 ) => {
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({
@@ -25,12 +25,10 @@ export const errorHandler = (
   }
 
   console.error('💥 Unhandled error:', err);
-  
+
   return res.status(500).json({
     status: 'error',
-    message: process.env.NODE_ENV === 'production' 
-      ? 'Internal server error' 
-      : err.message,
+    message: process.env.NODE_ENV === 'production' ? 'Internal server error' : err.message,
   });
 };
 

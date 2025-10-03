@@ -14,7 +14,9 @@ interface DirectionCardProps {
 const DirectionCard = ({ icon: Icon, title, description, color, onClick }: DirectionCardProps) => {
   return (
     <Card hover onClick={onClick}>
-      <div className={`w-14 h-14 ${color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+      <div
+        className={`w-14 h-14 ${color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+      >
         <Icon size={28} className="text-white" />
       </div>
       <h3 className="text-xl font-semibold text-text mb-2">{title}</h3>
@@ -58,12 +60,8 @@ export const DirectionsSection = () => {
     <section className="py-20 bg-surface">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-text mb-4">
-            {t.directions.title}
-          </h2>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-            {t.directions.subtitle}
-          </p>
+          <h2 className="text-4xl sm:text-5xl font-bold text-text mb-4">{t.directions.title}</h2>
+          <p className="text-xl text-text-secondary max-w-2xl mx-auto">{t.directions.subtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -7,9 +7,7 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
       <ThemeProvider>
-        <I18nProvider>
-          {children}
-        </I18nProvider>
+        <I18nProvider>{children}</I18nProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );

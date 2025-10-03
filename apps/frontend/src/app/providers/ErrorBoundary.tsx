@@ -31,9 +31,7 @@ export class ErrorBoundary extends Component<Props, State> {
           <div className="text-center max-w-md">
             <div className="mb-8">
               <div className="text-6xl mb-4">💥</div>
-              <h1 className="text-3xl font-bold text-text mb-2">
-                Что-то пошло не так
-              </h1>
+              <h1 className="text-3xl font-bold text-text mb-2">Что-то пошло не так</h1>
               <p className="text-text-secondary mb-4">
                 Произошла непредвиденная ошибка. Мы уже работаем над её исправлением.
               </p>
@@ -48,10 +46,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 </details>
               )}
             </div>
-            <Button
-              variant="primary"
-              onClick={() => window.location.href = '/'}
-            >
+            <Button variant="primary" onClick={() => (window.location.href = '/')}>
               Вернуться на главную
             </Button>
           </div>

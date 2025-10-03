@@ -10,9 +10,7 @@ export const NotFoundPage = () => {
       <div className="text-center max-w-md">
         <div className="mb-8">
           <h1 className="text-9xl font-bold text-primary mb-4">404</h1>
-          <h2 className="text-3xl font-semibold text-text mb-2">
-            Страница не найдена
-          </h2>
+          <h2 className="text-3xl font-semibold text-text mb-2">Страница не найдена</h2>
           <p className="text-text-secondary">
             К сожалению, запрашиваемая страница не существует или была перемещена.
           </p>
@@ -27,7 +25,7 @@ export const NotFoundPage = () => {
             <Home size={20} />
             На главную
           </Button>
-          
+
           <Button
             variant="secondary"
             onClick={() => navigate(-1)}

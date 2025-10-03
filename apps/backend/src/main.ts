@@ -15,10 +15,12 @@ const HOST = process.env.HOST || '0.0.0.0';
 app.use(helmet());
 
 // CORS
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    credentials: true,
+  })
+);
 
 // Body parsing
 app.use(express.json({ limit: '10mb' }));
@@ -28,17 +30,17 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(loggerMiddleware);
 
 // Routes
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
+app.get('/health', (_req, res) => {
+  res.json({
+    status: 'ok',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     environment: process.env.NODE_ENV || 'development',
   });
 });
 
-app.get('/api', (req, res) => {
-  res.json({ 
+app.get('/api', (_req, res) => {
+  res.json({
     message: 'Creative Cluster API',
     version: '1.0.0',
     docs: '/api/docs',
@@ -53,23 +55,23 @@ app.use(errorHandler);
 
 // Graceful shutdown
 const server = app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://${HOST}:${PORT}`);
-  console.log(`📝 Health check: http://${HOST}:${PORT}/health`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.info(`🚀 Server running on http://${HOST}:${PORT}`);
+  console.info(`📝 Health check: http://${HOST}:${PORT}/health`);
+  console.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 
 process.on('SIGTERM', () => {
-  console.log('👋 SIGTERM signal received: closing HTTP server');
+  console.info('👋 SIGTERM signal received: closing HTTP server');
   server.close(() => {
-    console.log('✅ HTTP server closed');
+    console.info('✅ HTTP server closed');
     process.exit(0);
   });
 });
 
 process.on('SIGINT', () => {
-  console.log('👋 SIGINT signal received: closing HTTP server');
+  console.info('👋 SIGINT signal received: closing HTTP server');
   server.close(() => {
-    console.log('✅ HTTP server closed');
+    console.info('✅ HTTP server closed');
     process.exit(0);
   });
 });

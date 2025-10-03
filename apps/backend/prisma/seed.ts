@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
@@ -8,7 +10,7 @@ async function main() {
 
   // Создание тестового администратора
   const adminPassword = await bcrypt.hash('admin123', 10);
-  
+
   const admin = await prisma.user.upsert({
     where: { email: 'admin@creativecluster.ru' },
     update: {},
@@ -26,7 +28,7 @@ async function main() {
 
   // Создание тестового пользователя
   const userPassword = await bcrypt.hash('user123', 10);
-  
+
   const user = await prisma.user.upsert({
     where: { email: 'user@example.com' },
     update: {},
@@ -44,7 +46,7 @@ async function main() {
 }
 
 main()
-  .catch((e) => {
+  .catch(e => {
     console.error('❌ Seed error:', e);
     process.exit(1);
   })

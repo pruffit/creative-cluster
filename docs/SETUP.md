@@ -97,16 +97,19 @@ pnpm dev:backend   # Terminal 2
 После seed:
 
 ### Администратор
+
 - Email: `admin@creativecluster.ru`
 - Password: `admin123`
 
 ### Пользователь
+
 - Email: `user@example.com`
 - Password: `user123`
 
 ## 🔧 Troubleshooting
 
 ### Проблема: "Port 5432 already in use"
+
 ```bash
 # Остановите локальный PostgreSQL
 sudo systemctl stop postgresql  # Linux
@@ -114,6 +117,7 @@ brew services stop postgresql   # macOS
 ```
 
 ### Проблема: "Cannot connect to database"
+
 ```bash
 # Проверьте статус Docker
 docker ps
@@ -125,6 +129,7 @@ pnpm docker:dev
 ```
 
 ### Проблема: "Module not found"
+
 ```bash
 # Очистите и переустановите
 pnpm clean

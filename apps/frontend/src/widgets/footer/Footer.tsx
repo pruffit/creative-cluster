@@ -65,9 +65,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-text-secondary">
-          <p>
-            © 2025 Creative Cluster. {t.footer.copyright}
-          </p>
+          <p>© 2025 Creative Cluster. {t.footer.copyright}</p>
         </div>
       </div>
     </footer>
