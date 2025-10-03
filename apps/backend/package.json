@@ -1,18 +1,23 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Creative Cluster Backend API",
   "main": "dist/main.js",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "build": "tsc",
     "start": "node dist/main.js",
     "test": "jest",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "^6.16.3",
@@ -22,10 +27,12 @@
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "process": "^0.11.10",
     "redis": "^5.8.2",
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@eslint/js": "^9.36.0",
     "@types/bcryptjs": "^3.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
@@ -36,6 +43,7 @@
     "eslint": "^9.36.0",
     "prisma": "^6.16.3",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.45.0"
   }
 }

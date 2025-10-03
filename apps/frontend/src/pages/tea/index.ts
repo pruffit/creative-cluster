@@ -1,0 +1,1 @@
+export { TeaPage } from './TeaPage';

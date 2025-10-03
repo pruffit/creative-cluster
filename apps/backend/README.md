@@ -3,11 +3,13 @@
 Node.js API для творческого кластера.
 
 ## Разработка
+
 ```bash
 pnpm dev
 ```
 
 ## База данных
+
 ```bash
 # Генерация Prisma Client
 pnpm prisma:generate

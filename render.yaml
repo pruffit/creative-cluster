@@ -1,0 +1,38 @@
+services:
+  # Frontend
+  - type: web
+    name: creative-cluster-frontend
+    runtime: node
+    plan: free
+    buildCommand: cd apps/frontend && pnpm install && pnpm build
+    staticPublishPath: apps/frontend/dist
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://creative-cluster-backend.onrender.com/api/*
+
+  # Backend
+  - type: web
+    name: creative-cluster-backend
+    runtime: node
+    plan: free
+    buildCommand: cd apps/backend && pnpm install && pnpm build
+    startCommand: cd apps/backend && pnpm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+    healthCheckPath: /health
+
+  # PostgreSQL
+  - type: pserv
+    name: creative-cluster-db
+    plan: free
+    databaseName: creative_cluster
+    databaseUser: user
+
+  # Redis
+  - type: redis
+    name: creative-cluster-redis
+    plan: free

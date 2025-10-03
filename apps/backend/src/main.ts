@@ -2,29 +2,76 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+import { loggerMiddleware } from './common/middleware/logger';
+import { errorHandler, notFoundHandler } from './common/middleware/errorHandler';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 
+// Security
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  credentials: true,
-}));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+// CORS
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    credentials: true,
+  })
+);
+
+// Body parsing
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Logging
+app.use(loggerMiddleware);
+
+// Routes
+app.get('/health', (_req, res) => {
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development',
+  });
 });
 
-app.get('/api', (req, res) => {
-  res.json({ message: 'Creative Cluster API' });
+app.get('/api', (_req, res) => {
+  res.json({
+    message: 'Creative Cluster API',
+    version: '1.0.0',
+    docs: '/api/docs',
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📝 Health check: http://localhost:${PORT}/health`);
+// 404 handler
+app.use(notFoundHandler);
+
+// Error handler
+app.use(errorHandler);
+
+// Graceful shutdown
+const server = app.listen(PORT, () => {
+  console.info(`🚀 Server running on http://${HOST}:${PORT}`);
+  console.info(`📝 Health check: http://${HOST}:${PORT}/health`);
+  console.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+});
+
+process.on('SIGTERM', () => {
+  console.info('👋 SIGTERM signal received: closing HTTP server');
+  server.close(() => {
+    console.info('✅ HTTP server closed');
+    process.exit(0);
+  });
+});
+
+process.on('SIGINT', () => {
+  console.info('👋 SIGINT signal received: closing HTTP server');
+  server.close(() => {
+    console.info('✅ HTTP server closed');
+    process.exit(0);
+  });
 });
