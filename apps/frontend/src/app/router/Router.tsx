@@ -5,6 +5,7 @@ import { HomePage } from '@pages/home';
 import { YogaPage } from '@pages/yoga';
 import { TeaPage } from '@pages/tea';
 import { BookClubPage } from '@pages/book-club';
+import { NotFoundPage } from '@pages/not-found';
 
 export const Router = () => {
   return (
@@ -17,6 +18,7 @@ export const Router = () => {
             <Route path="/yoga" element={<YogaPage />} />
             <Route path="/tea" element={<TeaPage />} />
             <Route path="/book-club" element={<BookClubPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
         <Footer />

@@ -41,6 +41,9 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
       redis:
         specifier: ^5.8.2
         version: 5.8.2

@@ -10,7 +10,7 @@ export const Card = ({ children, hover = false, className, ...props }: CardProps
     <div
       className={cn(
         'bg-surface rounded-xl p-6 border border-border',
-        hover && 'transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer',
+        hover && 'group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer',
         className
       )}
       {...props}

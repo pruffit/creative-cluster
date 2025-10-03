@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Creative Cluster Backend API",
   "main": "dist/main.js",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "build": "tsc",
@@ -12,7 +15,8 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "^6.16.3",
@@ -22,6 +26,7 @@
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "process": "^0.11.10",
     "redis": "^5.8.2",
     "zod": "^4.1.11"
   },
