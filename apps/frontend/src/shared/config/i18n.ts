@@ -111,6 +111,42 @@ export const translations = {
         description: 'Literary meetings, book discussions, creative evenings.',
       },
     },
+    yoga: {
+      hero: {
+        title: 'Path to harmony of body and mind',
+        subtitle: 'Practice yoga with experienced instructors in the cozy atmosphere of our studio',
+        schedule: 'View schedule',
+        subscriptions: 'Choose subscription',
+      },
+      schedule: {
+        title: 'Class Schedule',
+        subtitle: 'Choose a convenient time for practice',
+        spots: 'spots',
+        noSpots: 'No spots',
+        register: 'Register',
+      },
+      subscriptions: {
+        title: 'Subscriptions',
+        subtitle: 'Choose the right plan and start regular practice',
+        popular: 'Popular',
+        perClass: 'per class',
+        choose: 'Choose',
+      },
+      instructors: {
+        title: 'Our Instructors',
+        subtitle: 'Experienced teachers with international certificates',
+        experience: 'Experience',
+        years: 'years',
+        specialization: 'Specialization',
+        certificates: 'Certificates',
+      },
+      blog: {
+        title: 'Yoga Blog',
+        subtitle: 'Useful articles about practice, philosophy and healthy lifestyle',
+        read: 'Read',
+        allPosts: 'All posts',
+      },
+    },
     footer: {
       brand: 'Creative Cluster',
       description: 'Creative space in the heart of Samara',

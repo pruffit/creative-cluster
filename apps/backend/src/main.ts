@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { loggerMiddleware } from './common/middleware/logger';
 import { errorHandler, notFoundHandler } from './common/middleware/errorHandler';
+import authRoutes from './modules/auth/auth.routes';
+import usersRoutes from './modules/users/users.routes';
 
 dotenv.config();
 
@@ -11,10 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
-// Security
 app.use(helmet());
 
-// CORS
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
@@ -22,14 +22,11 @@ app.use(
   })
 );
 
-// Body parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Logging
 app.use(loggerMiddleware);
 
-// Routes
 app.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
@@ -47,13 +44,13 @@ app.get('/api', (_req, res) => {
   });
 });
 
-// 404 handler
+app.use('/api/auth', authRoutes);
+app.use('/api/users', usersRoutes);
+
 app.use(notFoundHandler);
 
-// Error handler
 app.use(errorHandler);
 
-// Graceful shutdown
 const server = app.listen(PORT, () => {
   console.info(`🚀 Server running on http://${HOST}:${PORT}`);
   console.info(`📝 Health check: http://${HOST}:${PORT}/health`);

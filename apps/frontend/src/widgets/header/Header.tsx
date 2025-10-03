@@ -1,16 +1,34 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, Sun, Moon, Globe, ShoppingCart, Heart, User } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Menu, X, Sun, Moon, Globe, ShoppingCart, Heart, User, LogOut } from 'lucide-react';
 import { useTheme } from '@shared/lib/hooks/useTheme';
 import { useI18n } from '@shared/lib/hooks/useI18n';
+import { useUserStore } from '@entities/user/model/user.store';
+import { authApi } from '@shared/api/auth.api';
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { locale, setLocale, t } = useI18n();
+  const { isAuthenticated, user, clearUser } = useUserStore();
+  const navigate = useNavigate();
 
   const handleLocaleToggle = () => {
     setLocale(locale === 'ru' ? 'en' : 'ru');
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await authApi.signOut();
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      clearUser();
+      setUserMenuOpen(false);
+      navigate('/');
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
   };
 
   return (
@@ -72,9 +90,51 @@ export const Header = () => {
               </span>
             </button>
 
-            <button className="p-2 rounded-lg hover:bg-surface transition-colors text-text-secondary hover:text-text hidden sm:block">
-              <User size={20} />
-            </button>
+            {isAuthenticated && user ? (
+              <div className="relative hidden sm:block">
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center space-x-2 p-2 rounded-lg hover:bg-surface transition-colors"
+                >
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary to-amber-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                    {user.username.charAt(0).toUpperCase()}
+                  </div>
+                </button>
+
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-surface border border-border rounded-lg shadow-lg py-2">
+                    <div className="px-4 py-3 border-b border-border">
+                      <p className="text-sm font-medium text-text">{user.username}</p>
+                      <p className="text-xs text-text-secondary truncate">{user.email}</p>
+                    </div>
+
+                    <Link
+                      to="/profile"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center px-4 py-2 text-sm text-text hover:bg-surface-hover"
+                    >
+                      <User size={16} className="mr-3" />
+                      Профиль
+                    </Link>
+
+                    <button
+                      onClick={handleSignOut}
+                      className="w-full flex items-center px-4 py-2 text-sm text-text hover:bg-surface-hover"
+                    >
+                      <LogOut size={16} className="mr-3" />
+                      Выйти
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to="/auth/sign-in"
+                className="hidden sm:flex items-center px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg font-medium transition-colors text-sm"
+              >
+                Войти
+              </Link>
+            )}
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -116,10 +176,54 @@ export const Header = () => {
               >
                 {t.nav.bookClub}
               </Link>
+
+              {isAuthenticated && user ? (
+                <>
+                  <div className="border-t border-border pt-3 mt-3">
+                    <div className="px-3 py-2 text-sm font-medium text-text">{user.username}</div>
+                  </div>
+                  <Link
+                    to="/profile"
+                    className="px-3 py-2 rounded-lg hover:bg-surface text-text flex items-center"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <User size={16} className="mr-2" />
+                    Профиль
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleSignOut();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="px-3 py-2 rounded-lg hover:bg-surface text-text flex items-center w-full text-left"
+                  >
+                    <LogOut size={16} className="mr-2" />
+                    Выйти
+                  </button>
+                </>
+              ) : (
+                <div className="border-t border-border pt-3 mt-3">
+                  <Link
+                    to="/auth/sign-in"
+                    className="block w-full px-3 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg font-medium transition-colors text-center"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Войти
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}
       </nav>
+
+      {userMenuOpen && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setUserMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
     </header>
   );
 };
