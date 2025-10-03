@@ -1,6 +1,13 @@
 export type YogaStyle = 'hatha' | 'vinyasa' | 'yin' | 'nidra' | 'kundalini';
 
-export type DayOfWeek = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+export type DayOfWeek =
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday'
+  | 'sunday';
 
 export type DifficultyLevel = 'beginner' | 'intermediate' | 'advanced' | 'all';
 

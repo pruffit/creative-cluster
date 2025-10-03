@@ -82,9 +82,7 @@ export const YogaSchedule = ({ schedule }: YogaScheduleProps) => {
                           <h4 className="text-lg font-semibold text-text mb-1">
                             {yogaClass.title}
                           </h4>
-                          <p className="text-sm text-text-secondary">
-                            {yogaClass.instructor.name}
-                          </p>
+                          <p className="text-sm text-text-secondary">{yogaClass.instructor.name}</p>
                         </div>
                         <Badge variant={levelColors[yogaClass.level]}>
                           {levelNames[yogaClass.level]}

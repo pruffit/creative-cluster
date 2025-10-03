@@ -28,12 +28,15 @@ export class UsersService {
     return user;
   }
 
-  async updateProfile(userId: string, data: {
-    firstName?: string;
-    lastName?: string;
-    locale?: string;
-    theme?: 'LIGHT' | 'DARK' | 'SYSTEM';
-  }) {
+  async updateProfile(
+    userId: string,
+    data: {
+      firstName?: string;
+      lastName?: string;
+      locale?: string;
+      theme?: 'LIGHT' | 'DARK' | 'SYSTEM';
+    }
+  ) {
     const user = await prisma.user.update({
       where: { id: userId },
       data,

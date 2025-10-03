@@ -31,9 +31,7 @@ export const YogaBlog = ({ posts }: YogaBlogProps) => {
                 <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium mb-3">
                   {categoryNames[post.category]}
                 </span>
-                <h3 className="text-xl font-semibold text-text mb-2 line-clamp-2">
-                  {post.title}
-                </h3>
+                <h3 className="text-xl font-semibold text-text mb-2 line-clamp-2">{post.title}</h3>
               </div>
 
               <p className="text-sm text-text-secondary mb-4 line-clamp-3">{post.excerpt}</p>
