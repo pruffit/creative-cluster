@@ -1,6 +1,5 @@
 /// <reference types="node" />
 
-// Глобальные типы для Node.js
 declare global {
   namespace NodeJS {
     interface ProcessEnv {

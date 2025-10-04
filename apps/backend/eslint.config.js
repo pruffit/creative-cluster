@@ -32,11 +32,23 @@ export default tseslint.config(
     },
   },
   {
-    // Отключаем type-checking для seed файла
     files: ['prisma/**/*.ts'],
     extends: [tseslint.configs.disableTypeChecked],
     rules: {
       'no-console': 'off',
+    },
+  },
+  {
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'module',
+      project: './tsconfig.json',
+      tsconfigRootDir: '.',
+    },
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   }
 );

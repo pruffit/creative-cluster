@@ -1,6 +1,6 @@
 import { Award, Instagram, MessageCircle } from 'lucide-react';
-import { YogaInstructor } from '@entities/yoga/model/types';
 import { Card } from '@shared/ui';
+import type { YogaInstructor } from '@shared/api/yoga.api';
 
 interface YogaInstructorsProps {
   instructors: YogaInstructor[];
@@ -22,9 +22,17 @@ export const YogaInstructors = ({ instructors }: YogaInstructorsProps) => {
             <Card key={instructor.id}>
               <div className="flex flex-col sm:flex-row gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary to-amber-600 flex items-center justify-center text-white text-4xl font-bold">
-                    {instructor.name.charAt(0)}
-                  </div>
+                  {instructor.avatar ? (
+                    <img
+                      src={instructor.avatar}
+                      alt={instructor.name}
+                      className="w-32 h-32 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary to-amber-600 flex items-center justify-center text-white text-4xl font-bold">
+                      {instructor.name.charAt(0)}
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex-1">
@@ -37,34 +45,38 @@ export const YogaInstructors = ({ instructors }: YogaInstructorsProps) => {
 
                   <p className="text-sm text-text-secondary mb-4">{instructor.bio}</p>
 
-                  <div className="mb-4">
-                    <h4 className="text-sm font-medium text-text mb-2">Специализация:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {instructor.specialization.map(style => (
-                        <span
-                          key={style}
-                          className="px-3 py-1 bg-surface-hover rounded-full text-xs text-text"
-                        >
-                          {style}
-                        </span>
-                      ))}
+                  {instructor.specializations.length > 0 && (
+                    <div className="mb-4">
+                      <h4 className="text-sm font-medium text-text mb-2">Специализация:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {instructor.specializations.map((spec, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-surface-hover rounded-full text-xs text-text"
+                          >
+                            {spec.style}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  <div className="mb-4">
-                    <h4 className="text-sm font-medium text-text mb-2">Сертификаты:</h4>
-                    <ul className="text-xs text-text-secondary space-y-1">
-                      {instructor.certifications.map((cert, index) => (
-                        <li key={index}>• {cert}</li>
-                      ))}
-                    </ul>
-                  </div>
+                  {instructor.certifications.length > 0 && (
+                    <div className="mb-4">
+                      <h4 className="text-sm font-medium text-text mb-2">Сертификаты:</h4>
+                      <ul className="text-xs text-text-secondary space-y-1">
+                        {instructor.certifications.map((cert, index) => (
+                          <li key={index}>• {cert}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
-                  {instructor.socialLinks && (
+                  {(instructor.instagram || instructor.telegram) && (
                     <div className="flex gap-3">
-                      {instructor.socialLinks.instagram && (
+                      {instructor.instagram && (
                         <a
-                          href={`https://instagram.com/${instructor.socialLinks.instagram}`}
+                          href={`https://instagram.com/${instructor.instagram}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="p-2 rounded-lg bg-surface-hover hover:bg-border transition-colors text-text-secondary hover:text-text"
@@ -73,14 +85,15 @@ export const YogaInstructors = ({ instructors }: YogaInstructorsProps) => {
                           <Instagram size={18} />
                         </a>
                       )}
-                      {instructor.socialLinks.telegram && (
-                        <a
-                          href={`https://t.me/${instructor.socialLinks.telegram}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 rounded-lg bg-surface-hover hover:bg-border transition-colors text-text-secondary hover:text-text"
-                          aria-label="Telegram"
-                        >
+                      {instructor.telegram && (
+
+                          <a
+                            href={`https://t.me/${instructor.telegram}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-lg bg-surface-hover hover:bg-border transition-colors text-text-secondary hover:text-text"
+                            aria-label="Telegram"
+                          >
                           <MessageCircle size={18} />
                         </a>
                       )}

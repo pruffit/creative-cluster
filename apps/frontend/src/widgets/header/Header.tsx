@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, Sun, Moon, Globe, ShoppingCart, Heart, User, LogOut } from 'lucide-react';
+import { Menu, X, Sun, Moon, Globe, ShoppingCart, Heart, User, LogOut, Shield } from 'lucide-react';
 import { useTheme } from '@shared/lib/hooks/useTheme';
 import { useI18n } from '@shared/lib/hooks/useI18n';
 import { useUserStore } from '@entities/user/model/user.store';
@@ -31,6 +31,8 @@ export const Header = () => {
     }
   };
 
+  const isAdmin = user?.role === 'ADMIN';
+
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,6 +59,15 @@ export const Header = () => {
             <Link to="/book-club" className="text-text-secondary hover:text-text transition-colors">
               {t.nav.bookClub}
             </Link>
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className="text-primary hover:text-primary-dark transition-colors flex items-center gap-1"
+              >
+                <Shield size={16} />
+                Админ
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center space-x-3">
@@ -106,6 +117,12 @@ export const Header = () => {
                     <div className="px-4 py-3 border-b border-border">
                       <p className="text-sm font-medium text-text">{user.username}</p>
                       <p className="text-xs text-text-secondary truncate">{user.email}</p>
+                      {isAdmin && (
+                        <p className="text-xs text-primary mt-1 flex items-center gap-1">
+                          <Shield size={12} />
+                          Администратор
+                        </p>
+                      )}
                     </div>
 
                     <Link
@@ -116,6 +133,17 @@ export const Header = () => {
                       <User size={16} className="mr-3" />
                       Профиль
                     </Link>
+
+                    {isAdmin && (
+                      <Link
+                        to="/admin"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center px-4 py-2 text-sm text-text hover:bg-surface-hover"
+                      >
+                        <Shield size={16} className="mr-3" />
+                        Панель администратора
+                      </Link>
+                    )}
 
                     <button
                       onClick={handleSignOut}
@@ -181,6 +209,12 @@ export const Header = () => {
                 <>
                   <div className="border-t border-border pt-3 mt-3">
                     <div className="px-3 py-2 text-sm font-medium text-text">{user.username}</div>
+                    {isAdmin && (
+                      <div className="px-3 py-1 text-xs text-primary flex items-center gap-1">
+                        <Shield size={12} />
+                        Администратор
+                      </div>
+                    )}
                   </div>
                   <Link
                     to="/profile"
@@ -190,6 +224,16 @@ export const Header = () => {
                     <User size={16} className="mr-2" />
                     Профиль
                   </Link>
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      className="px-3 py-2 rounded-lg hover:bg-surface text-text flex items-center"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <Shield size={16} className="mr-2" />
+                      Админ-панель
+                    </Link>
+                  )}
                   <button
                     onClick={() => {
                       handleSignOut();

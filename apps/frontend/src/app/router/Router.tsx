@@ -7,6 +7,7 @@ import { TeaPage } from '@pages/tea';
 import { BookClubPage } from '@pages/book-club';
 import { SignInPage, SignUpPage } from '@pages/auth';
 import { ProfilePage } from '@pages/profile';
+import { AdminPage } from '@pages/admin';
 import { NotFoundPage } from '@pages/not-found';
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -33,6 +34,14 @@ export const Router = () => {
                     element={
                       <ProtectedRoute>
                         <ProfilePage />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/admin"
+                    element={
+                      <ProtectedRoute requiredRole={['ADMIN']}>
+                        <AdminPage />
                       </ProtectedRoute>
                     }
                   />

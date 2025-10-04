@@ -1,37 +1,37 @@
 import { Clock, Users, TrendingUp } from 'lucide-react';
-import { YogaClass, DayOfWeek } from '@entities/yoga/model/types';
 import { Card, Badge } from '@shared/ui';
+import type { YogaClass } from '@shared/api/yoga.api';
 
 interface YogaScheduleProps {
   schedule: YogaClass[];
 }
 
-const dayNames: Record<DayOfWeek, string> = {
-  monday: 'Понедельник',
-  tuesday: 'Вторник',
-  wednesday: 'Среда',
-  thursday: 'Четверг',
-  friday: 'Пятница',
-  saturday: 'Суббота',
-  sunday: 'Воскресенье',
+const dayNames: Record<string, string> = {
+  MONDAY: 'Понедельник',
+  TUESDAY: 'Вторник',
+  WEDNESDAY: 'Среда',
+  THURSDAY: 'Четверг',
+  FRIDAY: 'Пятница',
+  SATURDAY: 'Суббота',
+  SUNDAY: 'Воскресенье',
 };
 
 const levelColors: Record<string, 'default' | 'success' | 'warning'> = {
-  beginner: 'success',
-  intermediate: 'warning',
-  advanced: 'warning',
-  all: 'default',
+  BEGINNER: 'success',
+  INTERMEDIATE: 'warning',
+  ADVANCED: 'warning',
+  ALL: 'default',
 };
 
 const levelNames: Record<string, string> = {
-  beginner: 'Начинающие',
-  intermediate: 'Средний',
-  advanced: 'Продвинутый',
-  all: 'Все уровни',
+  BEGINNER: 'Начинающие',
+  INTERMEDIATE: 'Средний',
+  ADVANCED: 'Продвинутый',
+  ALL: 'Все уровни',
 };
 
 export const YogaSchedule = ({ schedule }: YogaScheduleProps) => {
-  // Группируем по дням недели
+
   const scheduleByDay = schedule.reduce(
     (acc, yogaClass) => {
       if (!acc[yogaClass.dayOfWeek]) {
@@ -40,20 +40,10 @@ export const YogaSchedule = ({ schedule }: YogaScheduleProps) => {
       acc[yogaClass.dayOfWeek]?.push(yogaClass);
       return acc;
     },
-    {} as Record<DayOfWeek, YogaClass[]>
+    {} as Record<string, YogaClass[]>
   );
 
-  // Сортируем по дням недели
-  const daysOrder: DayOfWeek[] = [
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-    'saturday',
-    'sunday',
-  ];
-
+  const daysOrder = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
   const sortedDays = daysOrder.filter(day => scheduleByDay[day]);
 
   return (
@@ -106,7 +96,7 @@ export const YogaSchedule = ({ schedule }: YogaScheduleProps) => {
                         </div>
                         <div className="flex items-center text-sm text-text-secondary">
                           <TrendingUp size={16} className="mr-2" />
-                          <span>{yogaClass.price} ₽</span>
+                          <span>{Number(yogaClass.price)} ₽</span>
                         </div>
                       </div>
 

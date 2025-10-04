@@ -6,6 +6,8 @@ import { loggerMiddleware } from './common/middleware/logger';
 import { errorHandler, notFoundHandler } from './common/middleware/errorHandler';
 import authRoutes from './modules/auth/auth.routes';
 import usersRoutes from './modules/users/users.routes';
+import adminRoutes from './modules/admin/admin.routes';
+import yogaRoutes from './modules/yoga/yoga.routes';
 
 dotenv.config();
 
@@ -44,8 +46,11 @@ app.get('/api', (_req, res) => {
   });
 });
 
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/yoga', yogaRoutes);
 
 app.use(notFoundHandler);
 

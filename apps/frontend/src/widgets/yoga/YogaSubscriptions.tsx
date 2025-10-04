@@ -1,6 +1,6 @@
 import { Check, Star } from 'lucide-react';
-import { Subscription } from '@entities/yoga/model/types';
 import { Card } from '@shared/ui';
+import type { Subscription } from '@shared/api/yoga.api';
 
 interface YogaSubscriptionsProps {
   subscriptions: Subscription[];
@@ -19,14 +19,14 @@ export const YogaSubscriptions = ({ subscriptions }: YogaSubscriptionsProps) => 
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {subscriptions.map(subscription => {
-            const pricePerClass = Math.round(subscription.price / subscription.classesCount);
+            const pricePerClass = Math.round(Number(subscription.price) / subscription.classesCount);
 
             return (
               <Card
                 key={subscription.id}
-                className={`relative ${subscription.popular ? 'ring-2 ring-primary shadow-lg' : ''}`}
+                className={`relative ${subscription.isPopular ? 'ring-2 ring-primary shadow-lg' : ''}`}
               >
-                {subscription.popular && (
+                {subscription.isPopular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                     <div className="bg-primary text-white px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                       <Star size={14} fill="currentColor" />
@@ -40,7 +40,7 @@ export const YogaSubscriptions = ({ subscriptions }: YogaSubscriptionsProps) => 
                   <p className="text-sm text-text-secondary mb-4">{subscription.description}</p>
 
                   <div className="mb-2">
-                    <span className="text-4xl font-bold text-text">{subscription.price}</span>
+                    <span className="text-4xl font-bold text-text">{Number(subscription.price)}</span>
                     <span className="text-text-secondary"> ₽</span>
                   </div>
 
@@ -66,7 +66,7 @@ export const YogaSubscriptions = ({ subscriptions }: YogaSubscriptionsProps) => 
 
                 <button
                   className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
-                    subscription.popular
+                    subscription.isPopular
                       ? 'bg-primary hover:bg-primary-dark text-white'
                       : 'bg-surface-hover hover:bg-border text-text'
                   }`}
